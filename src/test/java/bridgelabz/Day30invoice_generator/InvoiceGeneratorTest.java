@@ -1,15 +1,18 @@
 package bridgelabz.Day30invoice_generator;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
+import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class InvoiceGeneratorTest {
+    InvoiceGenerator invoiceGenerator=null;
+    @Before
+    public void setUp() throws Exception {
+        invoiceGenerator = new InvoiceGenerator();
+    }
+
     @Test
     public void givenDistanceTime_ShouldReturnTotalFare(){
-        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
         double distance=2.0;
         int time=5;
         double fare= invoiceGenerator.calculateFare(distance,time);
@@ -17,19 +20,18 @@ public class InvoiceGeneratorTest {
     }
     @Test
     public void givenLessDistanceTime_ShouldReturnMinFare(){
-        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
         double distance=0.1;
         int time=1;
         double fare= invoiceGenerator.calculateFare(distance,time);
         Assertions.assertEquals(5,fare);
     }
     @Test
-    public void givenMultipleRides_ShouldReturnInvoiceTotalFare(){
-        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+    public void givenMultipleRides_ShouldReturnInvoiceSummary(){
         Ride[] rides = {new Ride(2.0, 5),
-                       new Ride(0.1, 1)
+                new Ride(0.1, 1)
         };
-        double fare =invoiceGenerator.calculateFare(rides);
-        Assertions.assertEquals(30,fare);
+        InvoiceSummary summary =invoiceGenerator.calculateFare(rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 30.0);
+        Assertions.assertEquals(expectedInvoiceSummary, summary);
     }
 }
