@@ -3,6 +3,9 @@ package bridgelabz.Day30invoice_generator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 public class InvoiceGeneratorTest {
     @Test
     public void givenDistanceTime_ShouldReturnTotalFare(){
@@ -19,5 +22,14 @@ public class InvoiceGeneratorTest {
         int time=1;
         double fare= invoiceGenerator.calculateFare(distance,time);
         Assertions.assertEquals(5,fare);
+    }
+    @Test
+    public void givenMultipleRides_ShouldReturnInvoiceTotalFare(){
+        InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+        Ride[] rides = {new Ride(2.0, 5),
+                       new Ride(0.1, 1)
+        };
+        double fare =invoiceGenerator.calculateFare(rides);
+        Assertions.assertEquals(30,fare);
     }
 }
